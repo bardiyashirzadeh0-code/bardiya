@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08030d" />
+    <title>برای Delin ♡</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap");
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Vazirmatn", Tahoma, sans-serif;
+        min-height: 100vh;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 15% 10%,
+            rgba(255, 82, 166, 0.18),
+            transparent 28%
+          ),
+          radial-gradient(
+            circle at 85% 25%,
+            rgba(157, 78, 255, 0.16),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at 50% 90%,
+            rgba(255, 35, 122, 0.12),
+            transparent 30%
+          ),
+          #07030b;
+        overflow-x: hidden;
+      }
+      body:before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+          );
+        background-size: 45px 45px;
+        mask-image: linear-gradient(to bottom, black, transparent 90%);
+      }
+      canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .wrap {
+        position: relative;
+        z-index: 1;
+        width: min(1080px, 92%);
+        margin: auto;
+      }
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 0;
+      }
+      .badge {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 9px 16px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 143, 199, 0.25);
+        background: rgba(255, 255, 255, 0.055);
+        backdrop-filter: blur(14px);
+        color: #ffc6e2;
+        font-size: 13px;
+        margin-bottom: 25px;
+      }
+      .heart {
+        width: 105px;
+        height: 105px;
+        margin: 0 auto 22px;
+        position: relative;
+        display: grid;
+        place-items: center;
+        filter: drop-shadow(0 0 22px rgba(255, 65, 151, 0.7));
+        animation: pulse 1.7s ease-in-out infinite;
+      }
+      .heart:before,
+      .heart:after {
+        content: "";
+        position: absolute;
+        width: 58px;
+        height: 90px;
+        border-radius: 58px 58px 0 0;
+        background: linear-gradient(135deg, #ffb1d5, #ff3d98 55%, #a91cff);
+      }
+      .heart:before {
+        transform: rotate(-45deg);
+        left: 28px;
+        top: 7px;
+        transform-origin: 0 100%;
+      }
+      .heart:after {
+        transform: rotate(45deg);
+        right: 28px;
+        top: 7px;
+        transform-origin: 100% 100%;
+      }
+      .heart span {
+        position: relative;
+        z-index: 2;
+        font-size: 27px;
+      }
+      h1 {
+        font-size: clamp(48px, 10vw, 96px);
+        line-height: 1;
+        background: linear-gradient(90deg, #fff, #ffacd2 45%, #c78cff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        letter-spacing: -3px;
+        margin-bottom: 18px;
+      }
+      .hero p {
+        color: #c9c1cb;
+        font-size: clamp(15px, 2.2vw, 20px);
+        line-height: 2;
+        max-width: 650px;
+        margin: auto;
+      }
+      .cta {
+        display: inline-flex;
+        margin-top: 32px;
+        padding: 14px 25px;
+        border-radius: 16px;
+        text-decoration: none;
+        color: #fff;
+        background: linear-gradient(135deg, #ff3e99, #8e4dff);
+        box-shadow: 0 12px 35px rgba(255, 55, 145, 0.25);
+        transition: 0.3s;
+        font-weight: 600;
+      }
+      .cta:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 45px rgba(255, 55, 145, 0.4);
+      }
+      .section {
+        padding: 90px 0;
+      }
+      .section-title {
+        text-align: center;
+        margin-bottom: 35px;
+      }
+      .section-title span {
+        color: #ff80bb;
+        font-size: 13px;
+      }
+      .section-title h2 {
+        font-size: 34px;
+        margin-top: 8px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+      .card {
+        position: relative;
+        padding: 28px;
+        border-radius: 25px;
+        overflow: hidden;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.09),
+          rgba(255, 255, 255, 0.025)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        backdrop-filter: blur(18px);
+        box-shadow:
+          inset 0 1px rgba(255, 255, 255, 0.08),
+          0 20px 55px rgba(0, 0, 0, 0.25);
+        transition: 0.35s;
+      }
+      .card:before {
+        content: "";
+        position: absolute;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        background: #ff4f9e;
+        filter: blur(65px);
+        opacity: 0.1;
+        top: -70px;
+        right: -40px;
+      }
+      .card:hover {
+        transform: translateY(-7px);
+        border-color: rgba(255, 120, 184, 0.3);
+      }
+      .icon {
+        font-size: 30px;
+        margin-bottom: 16px;
+      }
+      .card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+        color: #ffd0e6;
+      }
+      .card p {
+        color: #bdb5c1;
+        line-height: 2;
+        font-size: 15px;
+      }
+      .quote {
+        max-width: 850px;
+        margin: auto;
+        text-align: center;
+        padding: 48px 30px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 139, 199, 0.16);
+        background: rgba(255, 255, 255, 0.045);
+        backdrop-filter: blur(15px);
+      }
+      .quote .mark {
+        font-size: 48px;
+        color: #ff76b5;
+      }
+      .quote p {
+        font-size: clamp(19px, 3vw, 28px);
+        line-height: 2;
+        color: #f4e9ef;
+      }
+      .interactive {
+        text-align: center;
+      }
+      .message {
+        min-height: 65px;
+        margin: 25px auto 0;
+        max-width: 720px;
+        padding: 20px;
+        border-radius: 18px;
+        color: #ffd5e8;
+        background: rgba(255, 83, 159, 0.07);
+        border: 1px solid rgba(255, 83, 159, 0.14);
+        opacity: 0;
+        transform: translateY(10px);
+        transition: 0.5s;
+      }
+      .message.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .btn {
+        border: 0;
+        color: white;
+        cursor: pointer;
+        padding: 14px 24px;
+        border-radius: 15px;
+        font: inherit;
+        font-weight: 600;
+        background: linear-gradient(135deg, #ff3d98, #8b4dff);
+        box-shadow: 0 10px 30px rgba(255, 61, 152, 0.2);
+      }
+      .timeline {
+        max-width: 760px;
+        margin: auto;
+        display: grid;
+        gap: 15px;
+      }
+      .step {
+        display: flex;
+        gap: 18px;
+        align-items: flex-start;
+        padding: 20px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.045);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+      .num {
+        min-width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 76, 157, 0.16);
+        color: #ff9bc9;
+      }
+      .step p {
+        color: #c8bfca;
+        line-height: 1.9;
+        font-size: 14px;
+      }
+      footer {
+        padding: 55px 0 35px;
+        text-align: center;
+        color: #77717c;
+        font-size: 13px;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: 0.8s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.09);
+        }
+      }
+      @media (max-width: 750px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          min-height: 92vh;
+        }
+        .section {
+          padding: 65px 0;
+        }
+        .card {
+          padding: 24px;
+        }
+        h1 {
+          letter-spacing: -2px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="particles"></canvas>
+
+    <main class="wrap">
+      <section class="hero">
+        <div>
+          <div class="badge">✦ یه صفحه‌ی کوچولو برای یه آدم خاص</div>
+          <div class="heart"><span>♡</span></div>
+          <h1>Delin</h1>
+          <p>
+            بعضی حرفا رو تو یه پیام کوتاه نمی‌شه گفت؛ واسه همین این صفحه رو
+            ساختم که چندتاشون اینجا بمونن.
+          </p>
+          <a class="cta" href="#letters">بریم سراغ حرفام ↓</a>
+        </div>
+      </section>
+
+      <section id="letters" class="section reveal">
+        <div class="section-title">
+          <span>FOR DELIN</span>
+          <h2>چندتا حرف ساده، از ته دل</h2>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <div class="icon">🌸</div>
+            <h3>لبخندت</h3>
+            <p>
+              گاهی یه لبخند ساده می‌تونه حال یه روز معمولی رو عوض کنه؛ بعضی
+              لبخندا بیشتر از چیزی که فکر می‌کنیم تو یادمون می‌مونن.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon">✨</div>
+            <h3>بودنت</h3>
+            <p>
+              لازم نیست همیشه یه حرف بزرگ برای گفتن باشه. همین که یکی برات مهم
+              باشه، خودش یه حرف خیلی بزرگه.
+            </p>
+          </article>
+          <article class="card">
+            <div class="icon">💌</div>
+            <h3>یه اعتراف کوچولو</h3>
+            <p>
+              بین همه‌ی اسما، «Delin» یه حس دیگه‌ای داره؛ حسی که بی‌اینکه بخوام
+              لبخند میاره رو لبم.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="quote">
+          <div class="mark">“</div>
+          <p>
+            اگه قرار باشه از بین همه‌ی جمله‌ها فقط یه جمله بمونه:<br /><strong
+              >خوشحالم که تو تو این دنیا هستی. ♡</strong
+            >
+          </p>
+        </div>
+      </section>
+
+      <section class="section reveal">
+        <div class="section-title">
+          <span>JUST A LITTLE MORE</span>
+          <h2>چندتا چیز که گفتنش خوبه</h2>
+        </div>
+        <div class="timeline">
+          <div class="step">
+            <div class="num">01</div>
+            <p>
+              لازم نیست همیشه یه اتفاق بزرگ بیفته تا یه آدم برامون ارزش داشته
+              باشه.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">02</div>
+            <p>
+              گاهی بودن یه آدم، حتی تو ساده‌ترین لحظه‌ها، خودش یه دلیل خوبه برای
+              خوشحال بودن.
+            </p>
+          </div>
+          <div class="step">
+            <div class="num">03</div>
+            <p>
+              و شاید مهم‌ترین حرف همینه: امیدوارم همیشه لبخندت واقعی باشه و دلت
+              آروم. ❤️
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section interactive reveal">
+        <div class="section-title">
+          <span>ONE LAST THING</span>
+          <h2>یه پیام مخفی</h2>
+        </div>
+        <button class="btn" onclick="revealMessage()">بازش کن ♡</button>
+        <div id="message" class="message"></div>
+      </section>
+
+      <footer>Made with ♡ for Delin · 2026</footer>
+    </main>
+
+    <script>
+      const canvas = document.getElementById("particles"),
+        ctx = canvas.getContext("2d");
+      let W,
+        H,
+        particles = [];
+      function resize() {
+        W = canvas.width = innerWidth;
+        H = canvas.height = innerHeight;
+      }
+      addEventListener("resize", resize);
+      resize();
+      for (let i = 0; i < 55; i++)
+        particles.push({
+          x: Math.random() * innerWidth,
+          y: Math.random() * innerHeight,
+          r: Math.random() * 1.7 + 0.4,
+          s: Math.random() * 0.45 + 0.15,
+          a: Math.random() * 0.55 + 0.15,
+        });
+      function animate() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach((p) => {
+          p.y -= p.s;
+          if (p.y < -5) p.y = H + 5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,150,205,${p.a})`;
+          ctx.fill();
+        });
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      function revealMessage() {
+        const box = document.getElementById("message");
+        box.textContent =
+          "Delin، این صفحه شاید فقط چندتا خط کد باشه، ولی حرفی که پشتشه خیلی ساده‌ست: امیدوارم همیشه بهترین نسخه‌ی خودت باشی و کلی چیز قشنگ تو راهت باشه. ❤️";
+        box.classList.add("show");
+      }
+
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) e.target.classList.add("visible");
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    </script>
+  </body>
+</html>
